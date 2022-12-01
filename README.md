@@ -1,42 +1,42 @@
 # Welcome-project. Homework for Software Engineer
 
-**Hi there!**
+**Привет!**
 
-We want to check your basic skills and want you show us how you're cool!
+Это тестовое домашниее задание, которое поможет нам съеэкономить ваше и наше время и избежать множества вопросов на очной встрече.
 
-It will help us save your time to not ask dumb questions.
+При выполнении этого задания, нам хочет увидеть, как ты:
 
-We suppose you will show us how do you:
-
-- Write and organize code
-- Unit test
-- Doc your code/solution
-
-We understand and don't require you spend a lot of time on that task, so just:
-
-1. Write algorithm
-2. 2-3 unit tests
-3. Few lines of docs explaining your solution and how to use it
-
-Below you can find problem you need to solve.
-
-`Please fork this repo and solve the problem and send us PR to review.`
-
-`If you need clarification or have question about problem input - it's ok, just create issue `
+- Пишеш и структурируеш код
+- Тестируеш то, что написано (unit tests)
+- Документируеш свое решение
 
 
-**Good luck and see you later!**
+Мы ценим твое время и не хотим чтобы тратил много времени на это задание, поэтому не ожидаем полноценного и законченного решения. 
 
-## Problem
+1. Напиши алгоритм  
+2. 2-3 unit теста будет достаточно
+3. Несколько строк документации по какой либо части твоего решения (без детализации)
 
-We want to get common/library solution for all developers in our company.
+Ниже ты можеш найти описание задачи которую мы предлагаем решить.
 
-We have 2 and more service's API and want to build map structure built from these data.
+`Пожалуйста сделай fork этого репо и когда решение будет готово - отравь нам ссылку на PR`
+
+`Если будут вопросы и/или нужно будет уточнение по задаче - это нормально. Просто создай issue и мы постараемся быстро тебе ответить`
 
 
-### Examples of input data
+**Good luck и увидимся позже!**
 
-Each service has array of tuples (verb, path). 
+## Задача
+
+У нас есть 2 и более сервисов описания API которых мы можем получить. Это собственно будут наши входные данные для нашего решения.
+
+Задачa - сделать решение, которое будет принимать эти данные и формировать map/json.
+
+
+### Пример входных данных
+
+
+Каждый запрос это массив кортежей (verb, path). 
 
 
                  verb           path
@@ -54,15 +54,13 @@ Each service has array of tuples (verb, path).
                 ("POST", "/api/v1/cluster/{cluster}/plugins")]
 
 
-Words in braces '{}' are parameters
+слова в фигурных скобках {} - параметры
 
+### Решение
 
-### Solution
+Необходимо реализовать следующую логику:
 
-Design, test and doc module/s what implement logic
-
-
-*Scenario 1*. First call
+*Сценарий 1*. Первый вызов
 
 
     IN ->    [("GET", "/api/v1/cluster/metrics"),
@@ -73,8 +71,7 @@ Design, test and doc module/s what implement logic
 
     LOGIC ->            parse and collect data
                         
-        1. build map by splitting "/" path without version (/api/v1) and without parameters ({cluster})
-        2. map looks like tree where leaf is verb (method - POST, GET)
+        Разбить path на состовляюшие (split "/") и сформировать структуру типа дерево, ключами и узлами которого будут эти составлящие слова, а значением конечного пути - verb (метод - POST, GET..). При формировании этого дерева исключить версию (/api/v1) и параметры ({cluster})
 
                                 |
 
@@ -84,7 +81,7 @@ Design, test and doc module/s what implement logic
                 }    
 
 
-*Scenario 2*. Second call with another data
+*Сценарий 2*. Второй и последующие вызовы
 
 
     IN ->    [("GET", "/api/v1/cluster/freenodes/list"),
@@ -96,11 +93,11 @@ Design, test and doc module/s what implement logic
 
     LOGIC ->            parse and collect data
                         
-        1. priosly data exists
-        2. if path/sub tree doesn't exists - create
-        3. if path/sub tree exists - check verb
-            3.1 if verb is same - just skip 
-            3.2 if verb is different - raise Exception with full path to verb 
+        1. Ранее обработанные данные участвуют в обработке
+        2. Если путь/поддерево не существует - создать новую ветвь if path/sub tree doesn't exists - create
+        3. Если путь/поддерево существует - проверить verb
+            3.1 Если verb такой же  - пропустить
+            3.2 Если verb отличается - вызвать Exception с полным путем до этого verb 
 
                                 |
 
@@ -111,20 +108,4 @@ Design, test and doc module/s what implement logic
                     'nodes': 'GET'
                     }
                 }
-
-
-### Limitations
-
-- We cannot get that data on same time, so you need to store data in memory and update it after each next request.
-    
-                                        (library)
-        service1  ---------->      JSON (create if not exists)
-                    send data
-
-        service2  ---------->      JSON  (update existing data)
-                    send data
-
-
-- service1 and service2 may have same API/data - tuple (verb, path) 
-
 
