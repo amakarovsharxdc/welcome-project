@@ -22,6 +22,9 @@ Below you can find problem you need to solve.
 
 `Please fork this repo and solve the problem and send us PR to review.`
 
+`If you need clarification or have question about problem input - it's ok, just create issue `
+
+
 **Good luck and see you later!**
 
 ## Problem
