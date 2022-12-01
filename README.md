@@ -1,4 +1,4 @@
-# Welcome-project. Homework for potential developers
+# Welcome-project. Homework for Software Engineer
 
 **Hi there!**
 
@@ -20,7 +20,7 @@ We understand and don't require you spend a lot of time on that task, so just:
 
 Below you can find problem you need to solve.
 
-Please fork this repo and solve the problem and send us PR to review.
+`Please fork this repo and solve the problem and send us PR to review.`
 
 **Good luck and see you later!**
 
