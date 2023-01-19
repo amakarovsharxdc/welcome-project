@@ -1,8 +1,8 @@
 import unittest
-from src.main import DataConstructor
+from src.main import DataConstructor, EmptyNode, EmptyNodes
 
 
-class TestDataConstructor(unittest.TestCase):
+class Testtest_DataConstructor(unittest.TestCase):
 
     def setUp(self):
         self.constructor = DataConstructor()
@@ -35,6 +35,14 @@ class TestDataConstructor(unittest.TestCase):
         self.assertDictEqual(output, self.example_output1)
 
     def test_example2_success(self):
-        self.constructor.output = self.constructor.construct(self.example_input1)
+        self.constructor.output = self.constructor.construct(
+            self.example_input1)
         output2 = self.constructor.construct(self.example_input2)
         self.assertDictEqual(output2, self.example_output2)
+
+    def test_example1_failure(self):
+        test_data = [("GET", "/api/v1/cluster"),
+                ("POST", "/api/v1/cluster/{cluster}"),
+                ("POST", "/api/v1/cluster/{cluster}")]
+        self.assertRaises(EmptyNodes,  self.constructor.construct, test_data)
+       
