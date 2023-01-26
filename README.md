@@ -113,3 +113,9 @@
                     }
                 }
 ```
+
+### Проверка
+
+```bash
+$ docker-compose up tests
+```
